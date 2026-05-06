@@ -963,12 +963,6 @@ window.LIVE_CV = {
       "label": "GitHub",
       "value": "GitHub",
       "href": "https://github.com/MohamedMrj"
-    },
-    {
-      "key": "website",
-      "label": "Website",
-      "value": "Website",
-      "href": "https://mohamedalmefrej.me"
     }
   ]
 };
