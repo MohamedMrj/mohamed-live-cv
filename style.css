@@ -406,29 +406,32 @@ h3 {
   padding: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 22px;
+  justify-content: flex-start;
+  gap: 24px;
 }
 
 .avatar-wrap {
-  display: grid;
-  gap: 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
 }
 
 .avatar {
-  width: 92px;
-  height: 92px;
+  width: 86px;
+  height: 86px;
+  flex: 0 0 86px;
   display: grid;
   place-items: center;
   border-radius: 999px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #06111f;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 950;
   overflow: hidden;
   position: relative;
-  border: 2px solid color-mix(in srgb, var(--accent) 34%, var(--line));
-  box-shadow: var(--shadow);
+  border: 3px solid color-mix(in srgb, var(--accent) 36%, var(--line));
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
 }
 
 .avatar img {
@@ -438,6 +441,7 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: 1;
+  border-radius: inherit;
 }
 
 .avatar span {
@@ -448,6 +452,12 @@ h3 {
 .avatar-wrap h2 {
   font-size: 1.35rem;
   margin-bottom: 2px;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+
+.avatar-wrap > div:last-child {
+  min-width: 0;
 }
 
 .avatar-wrap p,
@@ -457,13 +467,15 @@ h3 {
 
 .quick-facts {
   display: grid;
+  margin-top: 6px;
 }
 
 .fact {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(90px, 0.7fr) minmax(0, 1fr);
+  align-items: start;
   gap: 16px;
-  padding: 13px 0;
+  padding: 14px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -478,6 +490,7 @@ h3 {
 .fact span:last-child {
   text-align: right;
   font-weight: 850;
+  overflow-wrap: anywhere;
 }
 
 .mini-links a {
@@ -1189,6 +1202,19 @@ h3 {
   .contact-actions .button,
   .project-detail-actions .button {
     width: 100%;
+  }
+
+  .avatar-wrap {
+    align-items: flex-start;
+  }
+
+  .fact {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .fact span:last-child {
+    text-align: left;
   }
 
   .nav-actions {
