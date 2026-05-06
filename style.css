@@ -420,11 +420,29 @@ h3 {
   height: 92px;
   display: grid;
   place-items: center;
-  border-radius: 28px;
+  border-radius: 999px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #06111f;
   font-size: 2rem;
   font-weight: 950;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  box-shadow: var(--shadow);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.avatar span {
+  position: relative;
+  z-index: 0;
 }
 
 .avatar-wrap h2 {
