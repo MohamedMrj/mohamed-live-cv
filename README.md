@@ -1,4 +1,4 @@
-# Mohamed Almefrej — Live CV
+# Mohamed Almefrej - Live CV
 
 A simple, smart and responsive Live CV built with plain HTML, CSS and JavaScript.
 
@@ -8,9 +8,9 @@ A simple, smart and responsive Live CV built with plain HTML, CSS and JavaScript
 - Swedish / English language switch
 - Light / dark mode with saved preference
 - Project cards with optional thumbnails
-- Optional GitHub and live demo links per project
+- Dedicated project detail pages with `project.html?id=project-id`
+- Optional GitHub, live demo and LinkedIn/article links per project
 - Project search and category filters
-- Project detail dialog
 - Download CV button
 - SEO-friendly metadata and favicon
 - No framework and no build step required
@@ -20,9 +20,11 @@ A simple, smart and responsive Live CV built with plain HTML, CSS and JavaScript
 ```txt
 live-cv-project/
   index.html
+  project.html
   style.css
   data.js
   script.js
+  project.js
   assets/
     cv/
       Mohamed_Almefrej_CV.pdf
@@ -30,7 +32,10 @@ live-cv-project/
       favicon.svg
       og-image.svg
     projects/
-      project-thumbnails.svg
+      project-id/
+        thumbnail.png
+        screenshot-1.png
+        screenshot-2.png
 ```
 
 ## How to run locally
@@ -51,7 +56,11 @@ http://localhost:8000
 
 ## How to update projects
 
-Open `data.js` and edit the `projects` array.
+Open `data.js` and edit the `projects` array. Each project detail page opens with:
+
+```txt
+project.html?id=my-project
+```
 
 Each project supports:
 
@@ -66,35 +75,54 @@ Each project supports:
     sv: "Kort svensk beskrivning.",
     en: "Short English description."
   },
-  details: {
-    problem: { sv: "Problem...", en: "Problem..." },
-    solution: { sv: "Lösning...", en: "Solution..." },
-    result: { sv: "Resultat...", en: "Result..." }
+  description: {
+    sv: ["Langre svensk beskrivning."],
+    en: ["Longer English description."]
+  },
+  problem: { sv: "Problem...", en: "Problem..." },
+  solution: { sv: "Losning...", en: "Solution..." },
+  result: { sv: "Resultat...", en: "Result..." },
+  role: { sv: "Min roll", en: "My role" },
+  technicalDecisions: {
+    sv: ["Tekniskt val..."],
+    en: ["Technical decision..."]
+  },
+  learned: {
+    sv: ["Lardom..."],
+    en: ["Learning..."]
   },
   tags: ["HTML", "CSS", "JavaScript"],
-  image: "assets/projects/my-project.png",
-  githubUrl: "https://github.com/your-user/your-repo",
-  liveUrl: "https://your-demo-link.com"
+  thumbnail: "assets/projects/my-project/thumbnail.png",
+  images: [
+    "assets/projects/my-project/thumbnail.png",
+    "assets/projects/my-project/screenshot-1.png"
+  ],
+  links: [
+    { label: "GitHub", url: "https://github.com/your-user/your-repo" },
+    { label: "Live Demo", url: "https://your-demo-link.com" },
+    { label: "LinkedIn", url: "https://linkedin.com/..." }
+  ]
 }
 ```
 
-If you do not want a thumbnail, set:
+If you do not want a thumbnail, set `thumbnail: ""`.
+If you do not want a gallery, set `images: []`.
+If you do not want external buttons, set `links: []`.
 
-```js
-image: ""
+## How to update project images
+
+Use this convention:
+
+```txt
+assets/
+  projects/
+    project-id/
+      thumbnail.png
+      screenshot-1.png
+      screenshot-2.png
 ```
 
-If you do not want a GitHub link, set:
-
-```js
-githubUrl: ""
-```
-
-If you do not want a live demo link, set:
-
-```js
-liveUrl: ""
-```
+Missing image files will fall back to a clean generated visual, so the site will not break while content is in progress.
 
 ## How to update the CV PDF
 
@@ -115,4 +143,4 @@ Good simple options:
 - Vercel
 - Cloudflare Pages
 
-For GitHub Pages, push this folder to a repository and enable Pages from repository settings.
+For Cloudflare Pages, deploy the repository as a static site with no build command.

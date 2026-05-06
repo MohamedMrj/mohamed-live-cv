@@ -36,6 +36,7 @@
         <a href="#about" data-i18n="navAbout">About</a>
         <a href="#skills" data-i18n="navSkills">Skills</a>
         <a href="#projects" data-i18n="navProjects">Projects</a>
+        <a href="#courses" data-i18n="navCourses">Courses</a>
         <a href="#experience" data-i18n="navExperience">Experience</a>
         <a href="#contact" data-i18n="navContact">Contact</a>
 
@@ -61,7 +62,7 @@
 
           <div class="hero-actions">
             <a class="button primary" href="#projects" data-i18n="viewProjects">View projects</a>
-            <a class="button" href="assets/cv/Mohamed_Almefrej_CV.pdf" download data-i18n="downloadCv">Download CV</a>
+            <a class="button" href="assets/cv/Mohamed_Almefrej_CV_English.pdf" download data-cv-download data-i18n="downloadCv">Download CV</a>
             <a class="button ghost" href="https://github.com/MohamedMrj" target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </div>
@@ -128,6 +129,17 @@
       </div>
     </section>
 
+    <section class="section-pad compact" id="courses">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="section-kicker" data-i18n="coursesKicker">Courses</p>
+          <h2 data-i18n="coursesTitle">Relevant courses from my education.</h2>
+          <p data-i18n="coursesSubtitle">A quick overview of subjects supporting my profile in system development, data and web development.</p>
+        </div>
+        <div class="courses-grid" data-courses></div>
+      </div>
+    </section>
+
     <section class="section-pad compact" id="experience">
       <div class="container">
         <div class="section-heading center reveal">
@@ -156,10 +168,5 @@
       <a href="#top" data-i18n="backToTop">Back to top</a>
     </div>
   </footer>
-
-  <dialog class="project-dialog" data-project-dialog aria-labelledby="dialog-title">
-    <button class="dialog-close" type="button" data-dialog-close aria-label="Close dialog">×</button>
-    <div data-dialog-content></div>
-  </dialog>
 </body>
 </html>

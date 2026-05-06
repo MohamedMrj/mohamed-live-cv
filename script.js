@@ -28,6 +28,7 @@
     languageToggle: document.querySelector("[data-language-toggle]"),
     themeToggle: document.querySelector("[data-theme-toggle]"),
     themeLabel: document.querySelector("[data-theme-label]"),
+    cvDownload: document.querySelector("[data-cv-download]"),
     heroTitle: document.querySelector("[data-hero-title]"),
     facts: document.querySelector("[data-facts]"),
     aboutText: document.querySelector("[data-about-text]"),
@@ -36,12 +37,10 @@
     projectFilters: document.querySelector("[data-project-filters]"),
     projects: document.querySelector("[data-projects]"),
     emptyProjects: document.querySelector("[data-empty-projects]"),
+    courses: document.querySelector("[data-courses]"),
     experience: document.querySelector("[data-experience]"),
     contactLinks: document.querySelector("[data-contact-links]"),
-    year: document.querySelector("[data-year]"),
-    dialog: document.querySelector("[data-project-dialog]"),
-    dialogContent: document.querySelector("[data-dialog-content]"),
-    dialogClose: document.querySelector("[data-dialog-close]")
+    year: document.querySelector("[data-year]")
   };
 
   function getInitialLanguage() {
@@ -98,6 +97,7 @@
     els.emptyProjects.textContent = t("noProjects");
     els.languageToggle.textContent = t("switchToEnglish");
     els.menuToggle.setAttribute("aria-label", state.language === "sv" ? "Öppna meny" : "Open menu");
+    syncCvDownload();
     syncThemeLabel();
   }
 
@@ -114,6 +114,16 @@
       "aria-label",
       state.theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
     );
+  }
+
+  function syncCvDownload() {
+    if (!els.cvDownload || !app.cvFiles) return;
+
+    const cvPath = app.cvFiles[state.language] ?? app.cvFiles.en ?? app.cvFiles.sv;
+    if (!cvPath) return;
+
+    els.cvDownload.href = cvPath;
+    els.cvDownload.setAttribute("download", cvPath.split("/").pop());
   }
 
   function renderFacts() {
@@ -193,11 +203,31 @@
       .join("") || "P";
   }
 
+  function projectDetailsUrl(project) {
+    return `project.html?id=${encodeURIComponent(project.id)}`;
+  }
+
+  function projectThumbnail(project) {
+    return project.thumbnail || project.image || "";
+  }
+
+  function projectLinks(project) {
+    if (Array.isArray(project.links)) return project.links.filter((link) => link?.url);
+
+    const links = [];
+    if (project.githubUrl) links.push({ label: t("github"), url: project.githubUrl });
+    if (project.liveUrl) links.push({ label: t("liveDemo"), url: project.liveUrl });
+    return links;
+  }
+
   function renderProjectImage(project) {
-    if (project.image) {
+    const thumbnail = projectThumbnail(project);
+
+    if (thumbnail) {
       return `
         <div class="project-media">
-          <img src="${escapeHtml(project.image)}" alt="${escapeHtml(localized(project.title))} thumbnail" loading="lazy" />
+          <div class="project-placeholder">${escapeHtml(projectInitials(project))}</div>
+          <img src="${escapeHtml(thumbnail)}" alt="${escapeHtml(localized(project.title))} thumbnail" loading="lazy" onerror="this.remove()" />
         </div>
       `;
     }
@@ -214,31 +244,47 @@
     const filteredProjects = sortedProjects.filter(projectMatches);
 
     els.projects.innerHTML = filteredProjects
-      .map((project) => `
-        <article class="project-card reveal">
-          ${renderProjectImage(project)}
-          <div class="project-body">
-            <div class="project-meta">
-              <span>${escapeHtml(localized(project.category))} · ${escapeHtml(project.year)}</span>
-              ${project.featured ? `<span class="featured-badge">${escapeHtml(t("featured"))}</span>` : ""}
+      .map((project) => {
+        const links = projectLinks(project);
+
+        return `
+          <article class="project-card reveal">
+            ${renderProjectImage(project)}
+            <div class="project-body">
+              <div class="project-meta">
+                <span>${escapeHtml(localized(project.category))} / ${escapeHtml(project.year)}</span>
+                ${project.featured ? `<span class="featured-badge">${escapeHtml(t("featured"))}</span>` : ""}
+              </div>
+              <h3>${escapeHtml(localized(project.title))}</h3>
+              <p>${escapeHtml(localized(project.summary))}</p>
+              <div class="project-tags">
+                ${(project.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
+              </div>
+              <div class="project-actions">
+                <a class="text-link" href="${escapeHtml(projectDetailsUrl(project))}">${escapeHtml(t("viewDetails"))} &rarr;</a>
+                ${links.map((link) => `<a class="text-link" href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)} &rarr;</a>`).join("")}
+              </div>
             </div>
-            <h3>${escapeHtml(localized(project.title))}</h3>
-            <p>${escapeHtml(localized(project.summary))}</p>
-            <div class="project-tags">
-              ${(project.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
-            </div>
-            <div class="project-actions">
-              <button class="text-link" type="button" data-project-id="${escapeHtml(project.id)}">${escapeHtml(t("readMore"))} →</button>
-              ${project.githubUrl ? `<a class="text-link" href="${escapeHtml(project.githubUrl)}" target="_blank" rel="noreferrer">${escapeHtml(t("github"))} →</a>` : ""}
-              ${project.liveUrl ? `<a class="text-link" href="${escapeHtml(project.liveUrl)}" target="_blank" rel="noreferrer">${escapeHtml(t("liveDemo"))} →</a>` : ""}
-            </div>
-          </div>
-        </article>
-      `)
+          </article>
+        `;
+      })
       .join("");
 
     els.emptyProjects.hidden = filteredProjects.length > 0;
     observeRevealElements();
+  }
+
+  function renderCourses() {
+    if (!els.courses) return;
+
+    els.courses.innerHTML = app.courses[state.language]
+      .map((course) => `
+        <article class="course-item reveal">
+          <span class="course-mark" aria-hidden="true"></span>
+          <span>${escapeHtml(course)}</span>
+        </article>
+      `)
+      .join("");
   }
 
   function renderExperience() {
@@ -275,64 +321,11 @@
     renderSkills();
     renderProjectFilters();
     renderProjects();
+    renderCourses();
     renderExperience();
     renderContactLinks();
     setText("[data-year]", new Date().getFullYear());
     observeRevealElements();
-  }
-
-  function openProjectDialog(projectId) {
-    const project = app.projects.find((item) => item.id === projectId);
-    if (!project) return;
-
-    const imageMarkup = project.image
-      ? `<div class="dialog-hero"><img src="${escapeHtml(project.image)}" alt="${escapeHtml(localized(project.title))} thumbnail" /></div>`
-      : `<div class="dialog-hero"><div class="project-placeholder">${escapeHtml(projectInitials(project))}</div></div>`;
-
-    els.dialogContent.innerHTML = `
-      ${imageMarkup}
-      <div class="dialog-body">
-        <p class="section-kicker">${escapeHtml(localized(project.category))} · ${escapeHtml(project.year)}</p>
-        <h2 id="dialog-title">${escapeHtml(localized(project.title))}</h2>
-        <p class="muted">${escapeHtml(localized(project.summary))}</p>
-
-        <div class="project-tags">
-          ${(project.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
-        </div>
-
-        <div class="dialog-section">
-          <strong>${escapeHtml(t("problem"))}</strong>
-          <p class="muted">${escapeHtml(localized(project.details.problem))}</p>
-        </div>
-        <div class="dialog-section">
-          <strong>${escapeHtml(t("solution"))}</strong>
-          <p class="muted">${escapeHtml(localized(project.details.solution))}</p>
-        </div>
-        <div class="dialog-section">
-          <strong>${escapeHtml(t("result"))}</strong>
-          <p class="muted">${escapeHtml(localized(project.details.result))}</p>
-        </div>
-
-        <div class="dialog-links">
-          ${project.githubUrl ? `<a class="button" href="${escapeHtml(project.githubUrl)}" target="_blank" rel="noreferrer">${escapeHtml(t("github"))}</a>` : ""}
-          ${project.liveUrl ? `<a class="button" href="${escapeHtml(project.liveUrl)}" target="_blank" rel="noreferrer">${escapeHtml(t("liveDemo"))}</a>` : ""}
-        </div>
-      </div>
-    `;
-
-    if (typeof els.dialog.showModal === "function") {
-      els.dialog.showModal();
-    } else {
-      els.dialog.setAttribute("open", "");
-    }
-  }
-
-  function closeProjectDialog() {
-    if (typeof els.dialog.close === "function") {
-      els.dialog.close();
-    } else {
-      els.dialog.removeAttribute("open");
-    }
   }
 
   function toggleMenu(forceClose = false) {
@@ -371,18 +364,6 @@
       state.activeCategory = button.getAttribute("data-category");
       renderProjectFilters();
       renderProjects();
-    });
-
-    els.projects.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-project-id]");
-      if (!button) return;
-      openProjectDialog(button.getAttribute("data-project-id"));
-    });
-
-    els.dialogClose.addEventListener("click", closeProjectDialog);
-
-    els.dialog.addEventListener("click", (event) => {
-      if (event.target === els.dialog) closeProjectDialog();
     });
 
     document.addEventListener("keydown", (event) => {
