@@ -968,7 +968,7 @@ window.LIVE_CV = {
       "key": "website",
       "label": "Website",
       "value": "Website",
-      "href": "https://mohamedalmefrej.com"
+      "href": "https://mohamedalmefrej.me"
     }
   ]
 };
