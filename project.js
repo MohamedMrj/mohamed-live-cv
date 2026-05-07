@@ -69,6 +69,26 @@
       .replaceAll("'", "&#039;");
   }
 
+  function titleMarkup(value) {
+    function chunkLongWord(word) {
+      if (word.length <= 13) return word;
+
+      const chunks = [];
+      for (let index = 0; index < word.length; index += 11) {
+        chunks.push(word.slice(index, index + 11));
+      }
+      return chunks.join("<wbr>");
+    }
+
+    return escapeHtml(value)
+      .split(/(\s+)/)
+      .map((part) => {
+        if (!part.trim()) return part;
+        return part.split("-").map(chunkLongWord).join("-<wbr>");
+      })
+      .join("");
+  }
+
   function getProjectId() {
     return new URLSearchParams(window.location.search).get("id") || "";
   }
@@ -185,7 +205,7 @@
           <div class="project-detail-hero">
             <div class="project-detail-copy">
               <p class="section-kicker">${escapeHtml(localized(project.category))} / ${escapeHtml(project.year)}</p>
-              <h1>${escapeHtml(title)}</h1>
+              <h1>${titleMarkup(title)}</h1>
               <p class="hero-text">${escapeHtml(summary)}</p>
 
               ${links.length ? `

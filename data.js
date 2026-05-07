@@ -308,6 +308,81 @@ window.LIVE_CV = {
   },
   "projects": [
     {
+      "id": "delta-incident-inspector",
+      "featured": true,
+      "year": "2026",
+      "category": {
+        "sv": "Data Engineering Verktyg",
+        "en": "Data Engineering Tool"
+      },
+      "title": {
+        "sv": "Delta-incidentinspektörens laboratorium",
+        "en": "Delta Incident Inspector Lab"
+      },
+      "summary": {
+        "sv": "Ett Dockeriserat Delta Lake-incidentutredningsverktyg.",
+        "en": "A Dockerized Delta Lake incident investigation tool."
+      },
+      "description": {
+        "sv": [
+          "Ett Dockeriserat Delta Lake-incidentutredningsverktyg med ett CLI och webbläsargränssnitt för att jämföra tabellversioner, scheman, radantal, affärsnycklar och generera Markdown-incidentrapporter."
+        ],
+        "en": [
+          "A Dockerized Delta Lake incident investigation tool with a CLI and browser UI for comparing table versions, schemas, row counts, business keys, and generating Markdown incident reports."
+        ]
+      },
+      "problem": {
+        "sv": "Delta Lake lagrar tabellhistorik, men att undersöka vad som faktiskt ändrats mellan versioner kan fortfarande vara manuellt och tidskrävande. Dataingenjörer behöver ofta svara på frågor som: skrev någon över tabellen, ändrades schemat, försvann viktiga poster eller dök dubbletter av affärsnycklar upp?\nUtan ett fokuserat undersökningsverktyg kräver dessa kontroller vanligtvis upprepade manuella frågor, ad hoc-skript och noggrant jämförelsearbete.",
+        "en": "Delta Lake stores table history, but investigating what actually changed between versions can still be manual and time-consuming. Data engineers often need to answer questions like: did someone overwrite the table, did the schema change, did important records disappear, or did duplicate business keys appear?\nWithout a focused investigation tool, these checks usually require repeated manual queries, ad-hoc scripts, and careful comparison work."
+      },
+      "solution": {
+        "sv": "I built a Dockerized investigation lab that creates realistic sample Delta incidents and provides tools for analyzing them. Users can inspect table history, compare schemas, compare row counts, diff records by business key, and generate a Markdown report summarizing the findings.\nThe project supports both a CLI and a browser-based Streamlit UI, so it can be used by technical users in the terminal or by users who prefer a visual interface.",
+        "en": "Jag byggde ett Dockerized-utredningslabb som skapar realistiska exempel på Delta-incidenter och tillhandahåller verktyg för att analysera dem. Användare kan inspektera tabellhistorik, jämföra scheman, jämföra radantal, differera poster efter affärsnyckel och generera en Markdown-rapport som sammanfattar resultaten.\nProjektet stöder både ett CLI och ett webbläsarbaserat Streamlit-gränssnitt, så det kan användas av tekniska användare i terminalen eller av användare som föredrar ett visuellt gränssnitt."
+      },
+      "result": {
+        "sv": "Resultatet är ett reproducerbart lokalt Delta Lake-incidentutredningsverktyg som kan klonas, byggas med Docker, utfyllas med exempelincidentdata och användas omedelbart.\nDet demonstrerar praktiska datatekniska arbetsflöden som tabellversionsinspektion, schemajämförelse, avvikelsedetektering av radantal, nyckelnivådifferenser, dubbletter av nycklar, rapportgenerering, testning, CI och modulär Python-arkitektur.",
+        "en": "The result is a reproducible local Delta Lake incident investigation tool that can be cloned, built with Docker, seeded with sample incident data, and used immediately.\nIt demonstrates practical data-engineering workflows such as table version inspection, schema comparison, row-count anomaly detection, key-level diffing, duplicate key detection, report generation, testing, CI, and modular Python architecture."
+      },
+      "role": {
+        "sv": "Utvecklare",
+        "en": "Developer"
+      },
+      "technicalDecisions": {
+        "sv": [
+          "- Använde Docker och Docker Compose för att hålla miljön isolerad och reproducerbar.\n- Byggde kärnverktyget som ett Typer CLI så att det kan användas i skript, automatisering och utvecklararbetsflöden.\n- Lade till ett Streamlit-webbläsargränssnitt för att göra verktyget enklare att använda utan att memorera terminalkommandon.\n- Separerade logik i moduler för radantal, schemajämförelse, nyckelnivådifferenser och rapportgenerering.\n- Använde Pandas och PyArrow för lokal tabelljämförelse eftersom det aktuella projektet är utformat som ett lokalt undersökningslabb.\n- Lade till Pytest-röktester och Ruff-linting för att skydda de huvudsakliga arbetsflödena.\n- Lade till GitHub Actions CI för att automatiskt köra linting och tester vid push."
+        ],
+        "en": [
+          "- Used Docker and Docker Compose to keep the environment isolated and reproducible.\n- Built the core tool as a Typer CLI so it can be used in scripts, automation, and developer workflows.\n- Added a Streamlit browser UI to make the tool easier to use without memorizing terminal commands.\n- Separated logic into modules for row counts, schema comparison, key-level diffing, and report generation.\n- Used Pandas and PyArrow for local table comparison because the current project is designed as a local investigation lab.\n- Added Pytest smoke tests and Ruff linting to protect the main workflows.\n- Added GitHub Actions CI to automatically run linting and tests on push."
+        ]
+      },
+      "learned": {
+        "sv": [
+          "- Hur man strukturerar ett Dockeriserat Python-datateknikprojekt.\n- Hur man bygger ett CLI-verktyg med återanvändbara interna moduler.\n- Hur Delta Lake-tabellversioner kan inspekteras och jämföras.\n- Hur man upptäcker realistiska dataincidenter som radförluster, schemaändringar, saknade nycklar, ändrade poster och duplicerade affärsnycklar.\n- Hur man balanserar terminalbaserade arbetsflöden med ett webbläsargränssnitt för bättre användbarhet.\n- Hur man omstrukturerar från en stor prototypfil till renare moduler.\n- Hur man använder tester och CI för att hålla ett projekt tillförlitligt samtidigt som man lägger till funktioner."
+        ],
+        "en": [
+          "- How to structure a Dockerized Python data-engineering project.\n- How to build a CLI tool with reusable internal modules.\n- How Delta Lake table versions can be inspected and compared.\n- How to detect realistic data incidents such as row-count drops, schema changes, missing keys, changed records, and duplicate business keys.\n- How to balance terminal-based workflows with a browser UI for better usability.\n- How to refactor from a large prototype file into cleaner modules.\n- How to use tests and CI to keep a project reliable while adding features."
+        ]
+      },
+      "tags": [
+        "Python",
+        "Docker",
+        "Delta Lake",
+        "Streamlit",
+        "Typer CLI",
+        "Pandas",
+        "PyArrow",
+        "Testing",
+        "GitHub Actions",
+        "Data Engineering"
+      ],
+      "thumbnail": "assets/projects/delta-inspector/1_OvaO5ldqlLnsrvRfTdZo4A.png",
+      "images": ["assets/projects/delta-inspector/Screenshot 2026-05-07 230618.png"],
+      "links": [        {
+          "label": "GitHub",
+          "url": "https://github.com/MohamedMrj/delta-incident-inspector-lab"
+        }]
+    },
+    {
       "id": "tkinter-youtube-api-gui",
       "featured": false,
       "year": "2024",
