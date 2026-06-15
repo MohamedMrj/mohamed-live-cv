@@ -220,6 +220,18 @@
     return links;
   }
 
+  function projectYear(project) {
+    const year = Number.parseInt(project.year, 10);
+    return Number.isFinite(year) ? year : 0;
+  }
+
+  function compareProjectsNewestFirst(a, b) {
+    const yearDifference = projectYear(b) - projectYear(a);
+    if (yearDifference !== 0) return yearDifference;
+
+    return Number(b.featured) - Number(a.featured);
+  }
+
   function renderProjectImage(project) {
     const thumbnail = projectThumbnail(project);
 
@@ -240,7 +252,7 @@
   }
 
   function renderProjects() {
-    const sortedProjects = [...app.projects].sort((a, b) => Number(b.featured) - Number(a.featured));
+    const sortedProjects = [...app.projects].sort(compareProjectsNewestFirst);
     const filteredProjects = sortedProjects.filter(projectMatches);
 
     els.projects.innerHTML = filteredProjects
