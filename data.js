@@ -308,6 +308,87 @@ window.LIVE_CV = {
   },
   "projects": [
     {
+      "id": "data-workbench-console",
+      "featured": true,
+      "year": "2026",
+      "category": {
+        "sv": "Data Platform Verktyg",
+        "en": "Data Platform Tool"
+      },
+      "title": {
+        "sv": "Data Workbench Console",
+        "en": "Data Workbench Console"
+      },
+      "summary": {
+        "sv": "En produktionssäker intern SQL-workbench för Microsoft Fabric SQL endpoints, Fabric Lakehouse SQL endpoints och SQL Server.",
+        "en": "A production-safe internal SQL workbench for Microsoft Fabric SQL endpoints, Fabric Lakehouse SQL endpoints, and SQL Server."
+      },
+      "description": {
+        "sv": [
+          "En produktionssäker intern SQL-workbench byggd för kontrollerat operativt arbete mot Microsoft Fabric SQL endpoints, Fabric Lakehouse SQL endpoints och SQL Server. Verktyget låter användare bläddra i metadata, generera SQL, köra läsfrågor, förhandsgranska writes innan körning, köra stored procedures i ett separat flöde och behålla en audit trail över viktiga åtgärder."
+        ],
+        "en": [
+          "A production-safe internal SQL workbench built for controlled operational work against Microsoft Fabric SQL endpoints, Fabric Lakehouse SQL endpoints, and SQL Server. The tool lets users browse metadata, generate SQL, run read queries, preview writes before execution, run stored procedures in a dedicated flow, and keep an audit trail of important actions."
+        ]
+      },
+      "problem": {
+        "sv": "Operativt arbete mot riktiga databaser kräver mer kontroll än en vanlig SQL-editor ger. Användare behöver kunna utforska metadata, skapa frågor och utföra viktiga åtgärder utan att tappa spårbarhet, råka köra riskabla writes direkt eller blanda ihop SQL-arbete med stored procedure-körningar.",
+        "en": "Operational work against real databases needs more control than a generic SQL editor provides. Users need to explore metadata, create queries, and perform important actions without losing traceability, accidentally running risky writes directly, or mixing SQL work with stored procedure execution."
+      },
+      "solution": {
+        "sv": "Jag byggde en Next.js-baserad operator console med två separata arbetslägen: SQL Studio och Procedure Runner. SQL Studio fokuserar på katalogbläddring, SQL-generering, SELECT-körningar, write-preview, resultatvisning och CSV-export. Procedure Runner fokuserar på stored procedures, parametrar, bekräftelseflöden och körhistorik. Appen stödjer sparade anslutningsprofiler utan lösenord, sessionsåterställning per arbetsläge, inbyggd dokumentation och audit-loggning.",
+        "en": "I built a Next.js-based operator console with two separate work modes: SQL Studio and Procedure Runner. SQL Studio focuses on catalog browsing, SQL generation, SELECT execution, write previews, result inspection, and CSV export. Procedure Runner focuses on stored procedures, parameters, confirmation flows, and run history. The app supports saved connection profiles without passwords, per-mode workspace restore, built-in documentation, and audit logging."
+      },
+      "result": {
+        "sv": "Resultatet är ett lokalt och internt verktyg som gör databasarbetet mer strukturerat, spårbart och säkrare. Projektet visar praktisk fullstack-utveckling med Next.js, React, Node.js, SQL Server/Fabric-integrationer, audit-flöden, UI-state, dokumentation och verifieringsskript.",
+        "en": "The result is a local and internal tool that makes database work more structured, traceable, and safer. The project demonstrates practical full-stack development with Next.js, React, Node.js, SQL Server/Fabric integrations, audit flows, UI state, documentation, and verification scripts."
+      },
+      "role": {
+        "sv": "Designer och utvecklare",
+        "en": "Designer and developer"
+      },
+      "technicalDecisions": {
+        "sv": [
+          "- Byggde appen med Next.js och React för att kombinera ett snabbt browsergränssnitt med server-side integrationslogik.\n- Använde Node.js och mssql för anslutningar mot SQL Server och Fabric SQL endpoints.\n- Delade upp arbetsytan i SQL Studio och Procedure Runner för att hålla query-flöden och procedure-flöden separerade.\n- Lade till write-preview och explicita bekräftelser för riskablare operationer.\n- Sparade anslutningsprofiler utan lösenord eller secrets för att minska risken vid lokal användning.\n- Lade till audit-loggning för anslutningstester, katalogladdning, query-körningar, write previews, procedure-körningar och profiländringar.\n- Byggde in användardokumentation och verifieringsskript för build, backend smoke test och UI smoke test."
+        ],
+        "en": [
+          "- Built the app with Next.js and React to combine a fast browser interface with server-side integration logic.\n- Used Node.js and mssql for connections to SQL Server and Fabric SQL endpoints.\n- Split the workspace into SQL Studio and Procedure Runner to keep query flows and procedure flows separate.\n- Added write previews and explicit confirmations for riskier operations.\n- Saved connection profiles without passwords or secrets to reduce local-use risk.\n- Added audit logging for connection tests, catalog loads, query execution, write previews, procedure execution, and profile changes.\n- Built in user documentation and verification scripts for build, backend smoke testing, and UI smoke testing."
+        ]
+      },
+      "learned": {
+        "sv": [
+          "- Hur man designar ett säkrare operatörsgränssnitt för databasarbete.\n- Hur Microsoft Fabric SQL endpoints och SQL Server kan stödjas i samma workbench.\n- Hur write-preview, bekräftelseflöden och audit-loggar kan minska risk i interna verktyg.\n- Hur komplex UI-state kan sparas och återställas mellan olika arbetslägen.\n- Hur dokumentation, smoke tests och responsiva audits kan användas för att hålla ett internt verktyg stabilt."
+        ],
+        "en": [
+          "- How to design a safer operator interface for database work.\n- How Microsoft Fabric SQL endpoints and SQL Server can be supported in the same workbench.\n- How write previews, confirmation flows, and audit logs can reduce risk in internal tools.\n- How complex UI state can be saved and restored between different work modes.\n- How documentation, smoke tests, and responsive audits can be used to keep an internal tool stable."
+        ]
+      },
+      "tags": [
+        "Next.js",
+        "React",
+        "Node.js",
+        "SQL Server",
+        "Microsoft Fabric",
+        "MSSQL",
+        "Audit Logging",
+        "Internal Tools",
+        "Full-stack",
+        "Data Platform"
+      ],
+      "thumbnail": "assets/projects/data-workbench-console/readme-sql-studio.png",
+      "images": [
+        "assets/projects/data-workbench-console/readme-sql-studio.png",
+        "assets/projects/data-workbench-console/readme-procedure-runner.png",
+        "assets/projects/data-workbench-console/readme-docs.png"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/MohamedMrj/data-workbench-console"
+        }
+      ]
+    },
+    {
       "id": "delta-incident-inspector",
       "featured": true,
       "year": "2026",
