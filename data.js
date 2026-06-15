@@ -375,11 +375,10 @@ window.LIVE_CV = {
         "Full-stack",
         "Data Platform"
       ],
-      "thumbnail": "assets/projects/data-workbench-console/readme-sql-studio.png",
+      "thumbnail": "assets/projects/data-workbench-console/Screenshot 2026-06-15 151646.png",
       "images": [
-        "assets/projects/data-workbench-console/readme-sql-studio.png",
-        "assets/projects/data-workbench-console/readme-procedure-runner.png",
-        "assets/projects/data-workbench-console/readme-docs.png"
+        "assets/projects/data-workbench-console/Screenshot 2026-06-15 151646.png",
+        "assets/projects/data-workbench-console/Screenshot 2026-06-15 151713.png"
       ],
       "links": [
         {
