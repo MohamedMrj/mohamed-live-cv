@@ -29,7 +29,7 @@ live-cv-project/
     cv/
       Mohamed_Almefrej_CV.pdf
     images/
-      favicon.svg
+      logo2.png
       og-image.svg
     projects/
       project-id/
