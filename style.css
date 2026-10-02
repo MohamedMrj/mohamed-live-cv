@@ -150,12 +150,10 @@ button {
 .brand-mark {
   width: 42px;
   height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #06111f;
-  box-shadow: var(--shadow);
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #0f172a;
 }
 
 .nav-panel {
